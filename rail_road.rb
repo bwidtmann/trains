@@ -28,9 +28,21 @@ module Trains
       self.towns.select { |town| town.name == town_name}[0]
     end
 
+    def get_connection_by_town_names(source_town_name, destination_town_name)
+      self.connections.select { |connection| connection.source_town.name == source_town_name && connection.destination_town.name == destination_town_name }[0]
+    end
+
     def route(town_names)
-      # TODO implement algorithm (e.g. dijkstra)
-      'NO SUCH ROUTE'
+      route = 0
+      (town_names.size - 1).times do
+        connection = self.get_connection_by_town_names(town_names.shift, town_names[0])
+        if connection
+          route += connection.length
+        else
+          return 'NO SUCH ROUTE'
+        end
+      end
+      return route
     end
   end
 end
