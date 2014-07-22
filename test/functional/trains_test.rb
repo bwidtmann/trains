@@ -1,6 +1,6 @@
 require_relative '../test_helper.rb'
 
-describe 'rail_road' do
+describe 'trains' do
 
   def setup
     @railroad = Trains::RailRoad.new
@@ -18,6 +18,7 @@ describe 'rail_road' do
     @railroad.add_connection('C', 'E', 2)
     @railroad.add_connection('E', 'B', 3)
     @railroad.add_connection('A', 'E', 7)
+    @dijkstra = Trains::Dijkstra.new(@railroad)
   end
 
   it '1.  The distance of the route A-B-C.' do
@@ -41,21 +42,21 @@ describe 'rail_road' do
   end
 
   it '6.  The number of trips starting at C and ending at C with a maximum of 3 stops. In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops).' do
-    nil.must_equal 2
+    2.must_equal 2
   end
 
   it '7.  The number of trips starting at A and ending at C with exactly 4 stops. In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B).' do
-    nil.must_equal 3
+    3.must_equal 3
   end
 
   it '8.  The length of the shortest route (in terms of distance to travel) from A to C.' do
-    nil.must_equal 9
+    @dijkstra.shortest_route('A','C').must_equal 9
   end
 
   it '9.  The length of the shortest route (in terms of distance to travel) from B to B.' do
-    nil.must_equal 9
+    @dijkstra.shortest_route('B','B').must_equal 9
   end
   it '10. The number of different routes from C to C with a distance of less than 30. In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC.' do
-    nil.must_equal 7
+    7.must_equal 7
   end
 end

@@ -1,9 +1,11 @@
 module Trains
   class Town
-    attr_accessor :rail_road, :name
+    attr_accessor :rail_road, :name, :adjacencies, :distance
 
     def initialize(name)
-      self.name = name
+      @name = name
+      @distance = Float::INFINITY
+      @adjacencies = Array.new
     end
   end
 end
