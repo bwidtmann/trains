@@ -1,6 +1,6 @@
 module Trains
   class Town
-    attr_accessor :rail_road, :name, :adjacencies, :distance
+    attr_accessor :name, :adjacencies, :distance
 
     def initialize(name)
       @name = name

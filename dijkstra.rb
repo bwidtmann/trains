@@ -3,7 +3,7 @@ require 'logger'
 
 module Trains
   class Dijkstra
-    attr_accessor :rail_road, :towns, :log
+    attr :rail_road, :towns, :log
 
     def initialize(rail_road)
       @rail_road = rail_road

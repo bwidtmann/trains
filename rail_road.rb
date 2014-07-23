@@ -3,7 +3,7 @@ require_relative 'connection'
 
 module Trains
   class RailRoad
-    attr_accessor :towns, :connections
+    attr :towns, :connections
 
     def initialize
       @towns = Array.new
@@ -13,7 +13,6 @@ module Trains
     def add_town(town_name)
       town = Town.new(town_name)
       towns << town
-      town.rail_road = self
     end
 
     def add_connection(source_town_name, destination_town_name, length)

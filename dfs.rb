@@ -3,7 +3,7 @@ require 'logger'
 
 module Trains
   class Dfs
-    attr_accessor :rail_road, :stack, :opts, :log
+    attr :rail_road, :stack, :opts, :log
 
     def initialize(rail_road)
       @rail_road = rail_road
@@ -12,20 +12,20 @@ module Trains
     end
 
     def stops_or_distance
-      if @opts[:criterion] == :stops
-        @stack.size - 1
+      if opts[:criterion] == :stops
+        stack.size - 1
       else
-        rail_road.route(@stack.map(&:name))
+        rail_road.route(stack.map(&:name))
       end
     end
 
     def reached_end?
-      stops_or_distance >= @opts[:max]
+      stops_or_distance >= opts[:max]
     end
 
     def check_if_trip(town)
-      if town.name == @destination_town.name and @stack.size > 1
-        if stops_or_distance.between?(@opts[:min], @opts[:max])
+      if town.name == @destination_town.name and stack.size > 1
+        if stops_or_distance.between?(opts[:min], opts[:max])
           log.info "found a trip!"
           @trips += 1
         end
@@ -35,7 +35,7 @@ module Trains
     def traverse(town)
       @stack.push(town)
       log.info "visit town #{town.name}"
-      log.info "stack is #{@stack.map(&:name)}"
+      log.info "stack is #{stack.map(&:name)}"
 
       check_if_trip(town)
 
@@ -50,7 +50,7 @@ module Trains
       end
 
       # pop town from stack as it has been processed
-      @stack.pop
+      stack.pop
     end
 
     def route(source_town_name, destination_town_name, opts = {})
