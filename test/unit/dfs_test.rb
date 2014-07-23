@@ -26,13 +26,13 @@ describe 'dfs' do
   end
 
   it 'route with stops' do
-    @dfs.route_with_stops('A', 'C', 2, 2).must_equal 2
-    @dfs.route_with_stops('C', 'C', 0, 3).must_equal 2
-    @dfs.route_with_stops('A', 'C', 4, 4).must_equal 3
+    @dfs.route('A', 'C', {min: 2, max: 2, criterion: :stops}).must_equal 2
+    @dfs.route('C', 'C', {min: 0, max: 3, criterion: :stops}).must_equal 2
+    @dfs.route('A', 'C', {min: 4, max: 4, criterion: :stops}).must_equal 3
   end
 
   it 'route with distance' do
-    @dfs.route_with_distance('C', 'C', 30).must_equal 7
+    @dfs.route('C', 'C', {min: 0, max: 29, criterion: :distance}).must_equal 7
   end
 
 end

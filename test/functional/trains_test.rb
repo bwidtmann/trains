@@ -43,11 +43,11 @@ describe 'trains' do
   end
 
   it '6.  The number of trips starting at C and ending at C with a maximum of 3 stops. In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops).' do
-    @dfs.route_with_stops('C', 'C', 0, 3).must_equal 2
+    @dfs.route('C', 'C', {min: 0, max: 3, criterion: :stops}).must_equal 2
   end
 
   it '7.  The number of trips starting at A and ending at C with exactly 4 stops. In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B).' do
-    @dfs.route_with_stops('A', 'C', 4, 4).must_equal 3
+    @dfs.route('A', 'C', {min: 4, max: 4, criterion: :stops}).must_equal 3
   end
 
   it '8.  The length of the shortest route (in terms of distance to travel) from A to C.' do
@@ -58,6 +58,6 @@ describe 'trains' do
     @dijkstra.shortest_route('B','B').must_equal 9
   end
   it '10. The number of different routes from C to C with a distance of less than 30. In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC.' do
-    @dfs.route_with_distance('C', 'C', 30).must_equal 7
+    @dfs.route('C', 'C', {min: 0, max: 29, criterion: :distance}).must_equal 7
   end
 end
