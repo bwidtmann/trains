@@ -19,6 +19,7 @@ describe 'trains' do
     @railroad.add_connection('E', 'B', 3)
     @railroad.add_connection('A', 'E', 7)
     @dijkstra = Trains::Dijkstra.new(@railroad)
+    @dfs = Trains::Dfs.new(@railroad)
   end
 
   it '1.  The distance of the route A-B-C.' do
@@ -42,11 +43,11 @@ describe 'trains' do
   end
 
   it '6.  The number of trips starting at C and ending at C with a maximum of 3 stops. In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops).' do
-    2.must_equal 2
+    @dfs.route('C', 'C', 0, 3).must_equal 2
   end
 
   it '7.  The number of trips starting at A and ending at C with exactly 4 stops. In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B).' do
-    3.must_equal 3
+    @dfs.route('A', 'C', 4, 4).must_equal 3
   end
 
   it '8.  The length of the shortest route (in terms of distance to travel) from A to C.' do

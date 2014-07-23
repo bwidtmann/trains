@@ -49,6 +49,7 @@ describe 'dijkstra' do
 
   it 'shortest route' do
     @dijkstra.shortest_route('Frankfurt','Muenchen').must_equal 487
+    @dijkstra.shortest_route('Frankfurt','Augsburg').must_equal 415
   end
 
 end
