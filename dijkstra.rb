@@ -40,7 +40,7 @@ module Trains
         if (source_town_name == destination_town_name && nearest_town.distance == 0)
           nearest_town.distance = Float::INFINITY
         else
-          log.info "delete town #{nearest_town}"
+          log.info "delete town #{nearest_town.name}"
           towns.delete nearest_town
         end
       end

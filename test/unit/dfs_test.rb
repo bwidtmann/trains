@@ -25,10 +25,14 @@ describe 'dfs' do
     @dfs.rail_road.towns.count.must_equal 5
   end
 
-  it 'traverse' do
-    @dfs.route('A', 'C', 2, 2).must_equal 2
-    @dfs.route('C', 'C', 0, 3).must_equal 2
-    @dfs.route('A', 'C', 4, 4).must_equal 3
+  it 'route with stops' do
+    @dfs.route_with_stops('A', 'C', 2, 2).must_equal 2
+    @dfs.route_with_stops('C', 'C', 0, 3).must_equal 2
+    @dfs.route_with_stops('A', 'C', 4, 4).must_equal 3
+  end
+
+  it 'route with distance' do
+    @dfs.route_with_distance('C', 'C', 30).must_equal 7
   end
 
 end
