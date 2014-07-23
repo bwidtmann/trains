@@ -22,9 +22,11 @@ describe 'rail_road' do
   end
 
   it 'add connections' do
-    @railroad.connections.count.must_equal 3
-    @railroad.connections.first.length.must_equal 15
-    @railroad.connections.first.destination_town.name.must_equal 'B'
+    @railroad.towns.first.connections.first.destination_town.name.must_equal 'B'
+    @railroad.towns.first.connections.count.must_equal 1
+    @railroad.towns.first.connections.first.length.must_equal 15
+    @railroad.towns.first.adjacencies.count.must_equal 1
+    @railroad.towns.first.adjacencies.first.name.must_equal 'B'
   end
 
   it 'get route for two towns' do

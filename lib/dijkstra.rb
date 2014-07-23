@@ -31,7 +31,7 @@ module Trains
         break if nearest_town.distance == Float::INFINITY || (nearest_town.name == destination_town_name && nearest_town.distance > 0)
 
         nearest_town.adjacencies.each do |adjacency|
-          new_distance = nearest_town.distance + rail_road.get_connection_by_town_names(nearest_town.name, adjacency.name).length
+          new_distance = nearest_town.distance + rail_road.route([nearest_town.name, adjacency.name])
           adjacency.distance = new_distance if new_distance < adjacency.distance
           $log.info "new distance to #{adjacency.name} is now #{adjacency.name}"
         end
