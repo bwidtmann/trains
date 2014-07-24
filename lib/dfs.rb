@@ -57,7 +57,7 @@ module Trains
       source_town = rail_road.get_town_by_name(source_town_name)
       @destination_town = rail_road.get_town_by_name(destination_town_name)
       @trips = 0
-
+      # start recursive traversal the graph (rail_road)
       traverse(source_town)
 
       @trips
