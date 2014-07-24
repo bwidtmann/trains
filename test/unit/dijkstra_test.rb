@@ -26,25 +26,32 @@ describe 'dijkstra' do
     @railroad.add_connection('Nuernberg', 'Muenchen', 167)
     @railroad.add_connection('Kassel', 'Muenchen', 502)
     @dijkstra = Trains::Dijkstra.new(@railroad)
+    @dijkstra.send(:cloning_towns)
   end
 
   it 'initialize' do
     @dijkstra.rail_road.towns.count.must_equal 10
-    @dijkstra.towns.first.distance.must_equal Float::INFINITY
-    @dijkstra.towns.first.distance.must_equal Float::INFINITY
+    @dijkstra.rail_road.towns.first.distance.must_equal Float::INFINITY
+    @dijkstra.rail_road.towns.last.distance.must_equal Float::INFINITY
   end
 
-  it 'initialize - cloning towns' do
+  it 'cloning towns' do
     @dijkstra.towns.first.distance = 99
-    @railroad.towns.first.distance.must_equal Float::INFINITY
     @dijkstra.towns.first.adjacencies.first.distance = 88
+    # original graph should not be changed
+    @railroad.towns.first.distance.must_equal Float::INFINITY
     @railroad.towns.first.adjacencies.first.distance.must_equal Float::INFINITY
   end
 
   it 'get nearest town' do
     nearest_town = @dijkstra.towns.first
     nearest_town.distance = 0
-    @dijkstra.get_nearest_town.must_equal nearest_town
+    @dijkstra.send(:get_nearest_town).must_equal nearest_town
+  end
+
+  it 'get town by name' do
+    @dijkstra.send(:get_town_by_name, 'Muenchen').name.must_equal 'Muenchen'
+    @dijkstra.send(:get_town_by_name, 'Augsburg').name.must_equal 'Augsburg'
   end
 
   it 'shortest route' do

@@ -29,6 +29,13 @@ describe 'rail_road' do
     @railroad.towns.first.adjacencies.first.name.must_equal 'B'
   end
 
+  it 'get connection to town' do
+    source_town = @railroad.towns[0]
+    destination_town = @railroad.towns[1]
+    connection = source_town.get_connection_to_town(destination_town.name)
+    connection.length.must_equal 15
+  end
+
   it 'get route for two towns' do
     @railroad.route(['A','B']).must_equal 15
   end

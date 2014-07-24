@@ -23,6 +23,7 @@ describe 'dfs' do
 
   it 'initialize' do
     @dfs.rail_road.towns.count.must_equal 5
+    @dfs.stack.count.must_equal 0
   end
 
   it 'route with stops' do

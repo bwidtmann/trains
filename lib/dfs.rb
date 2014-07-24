@@ -10,6 +10,19 @@ module Trains
       @stack = Array.new
     end
 
+    def route(source_town_name, destination_town_name, opts = {})
+      @opts = opts
+      source_town = rail_road.get_town_by_name(source_town_name)
+      @destination_town = rail_road.get_town_by_name(destination_town_name)
+      @trips = 0
+      # start recursive traversal the graph (rail_road)
+      traverse(source_town)
+
+      @trips
+    end
+
+    private
+
     def stops_or_distance
       if opts[:criterion] == :stops
         stack.size - 1
@@ -52,15 +65,5 @@ module Trains
       stack.pop
     end
 
-    def route(source_town_name, destination_town_name, opts = {})
-      @opts = opts
-      source_town = rail_road.get_town_by_name(source_town_name)
-      @destination_town = rail_road.get_town_by_name(destination_town_name)
-      @trips = 0
-      # start recursive traversal the graph (rail_road)
-      traverse(source_town)
-
-      @trips
-    end
   end
 end
